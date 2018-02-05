@@ -1,0 +1,33 @@
+INICIO
+INICIO2
+--
+CREAR DATA Y SRC
+COPIAR DATA G:
+QDD AUTO=QSHOGEN
+BUILD
+EXIT
+QUIZ AUTO=TABLAS
+
+INSERTALL
+
+
+usar awk sobre otro awk:
+$ ls lib
+prims.awk
+
+$ cat lib/prims.awk
+function abs(num) { return (num > 0 ? num : -num) }
+function max(a,b) { return (a > b ? a : b) }
+function min(a,b) { return (a < b ? a : b) }
+
+$ export AWKPATH="$PWD/lib"
+
+$ awk -i prims.awk 'BEGIN{print min(4,7), abs(-3)}'
+4 3
+
+$ cat tst.awk
+@include "prims.awk"
+BEGIN { print min(4,7), abs(-3) }
+
+$ awk -f tst.awk
+4 3
